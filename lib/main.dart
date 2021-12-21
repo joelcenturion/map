@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Location location = new Location();
 
           bool _serviceEnabled;
-          PermissionStatus _permissionGranted;
+          // PermissionStatus _permissionGranted;
           LocationData _locationData;
 
           _serviceEnabled = await location.serviceEnabled();
@@ -72,17 +73,20 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           }
 
-          _permissionGranted = await location.hasPermission();
-          print('permission...........$_permissionGranted');
-          if (_permissionGranted == PermissionStatus.denied) {
-            print('_permissionGranted == PermissionStatus.denied');
-            _permissionGranted = await location.requestPermission();
-            print('_permissionGranted = await location.requestPermission();');
-            if (_permissionGranted != PermissionStatus.granted) {
-              print('_permissionGranted != PermissionStatus.granted');
-              return;
-            }
-          }
+          await Permission.locationWhenInUse.request();
+
+
+          // _permissionGranted = await location.hasPermission();
+          // print('permission...........$_permissionGranted');
+          // if (_permissionGranted == PermissionStatus.denied) {
+          //   print('_permissionGranted == PermissionStatus.denied');
+          //   _permissionGranted = await location.requestPermission();
+          //   print('_permissionGranted = await location.requestPermission();');
+          //   if (_permissionGranted != PermissionStatus.granted) {
+          //     print('_permissionGranted != PermissionStatus.granted');
+          //     return;
+          //   }
+          // }
 
         },
         tooltip: 'Map',
