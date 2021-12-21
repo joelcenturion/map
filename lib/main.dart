@@ -56,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
+          print('Location location = new Location();');
           Location location = new Location();
 
           bool _serviceEnabled;
@@ -74,8 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
           _permissionGranted = await location.hasPermission();
           print('permission...........$_permissionGranted');
           if (_permissionGranted == PermissionStatus.denied) {
+            print('_permissionGranted == PermissionStatus.denied');
             _permissionGranted = await location.requestPermission();
+            print('_permissionGranted = await location.requestPermission();');
             if (_permissionGranted != PermissionStatus.granted) {
+              print('_permissionGranted != PermissionStatus.granted');
               return;
             }
           }
